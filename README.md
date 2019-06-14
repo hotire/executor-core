@@ -76,3 +76,18 @@ ss <br/>
 ssss <br/>
   
   
+## blog
+
+### Core (Task, AbstractSupplierExecutor, AbstractFunctionExecutor)
+
+- https://blog.naver.com/gngh0101/221553733927
+
+### DefaultExecutor (SupplierExecutor, FunctionExecutor), DefaultAsyncExecutor
+
+- https://blog.naver.com/gngh0101/221556093114
+
+### Getting Started Executor Core
+
+- https://blog.naver.com/gngh0101/221562124236
+  
+  

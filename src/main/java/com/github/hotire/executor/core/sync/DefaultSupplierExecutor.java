@@ -30,7 +30,6 @@ public class DefaultSupplierExecutor<T> extends AbstractSupplierExecutor<T, T> {
     return new DefaultSupplierExecutor<>(Task.of(task, doOnError, doOnSuccess));
   }
 
-
   @Override
   public void executeByAsync() {
     throw new UnsupportedOperationException("UnsupportedAsyncException");
