@@ -4,7 +4,6 @@ import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.Task;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -35,23 +34,23 @@ public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T> {
   public List<ExecutorResponse<T>> execute() {
     final List<ExecutorResponse<T>> executorResponses = new ArrayList<>();
 
-    T result = null;
+    // execute fistTask
+    T result;
 
     try {
       result = getFirstTask().getTask().get();
     } catch (Exception e) {
       getFirstTask().getDoOnError().accept(e);
       executorResponses.add(new ExecutorResponse<>(e));
+      return executorResponses;
     }
 
     getFirstTask().getDoOnSuccess().accept(result);
     executorResponses.add(new ExecutorResponse<>(result));
 
+    // execute tasks
     for (Task<Function<T, T>, T> task : getTasks()) {
       try {
-        if (Objects.isNull(result)) {
-          break;
-        }
         result = task.getTask().apply(result);
       } catch (Throwable e) {
         task.getDoOnError().accept(e);
