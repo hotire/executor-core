@@ -13,7 +13,7 @@
 <dependency>
     <groupId>com.github.hotire</groupId>
     <artifactId>executor-core</artifactId>
-    <version>0.0.4</version>
+    <version>0.0.5</version>
 </dependency>
 
 ```
