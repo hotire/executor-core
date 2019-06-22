@@ -1,7 +1,7 @@
 package com.github.hotire.executor.core.sync;
 
-import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.AbstractSupplierExecutor;
+import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.Task;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +40,16 @@ public class DefaultSupplierExecutor<T> extends AbstractSupplierExecutor<T, T> {
     final List<ExecutorResponse<T>> executorResponses = new ArrayList<>();
 
     for (Task<Supplier<T>, T> task : getTasks()) {
+      T result;
       try {
-        T result = task.getTask().get();
-        task.getDoOnSuccess().accept(result);
-        executorResponses.add(new ExecutorResponse<>(result));
-      } catch (Exception e) {
+        result = task.getTask().get();
+      } catch (Throwable e) {
         task.getDoOnError().accept(e);
         executorResponses.add(new ExecutorResponse<>(e));
         break;
       }
+      task.getDoOnSuccess().accept(result);
+      executorResponses.add(new ExecutorResponse<>(result));
     }
 
     return executorResponses;

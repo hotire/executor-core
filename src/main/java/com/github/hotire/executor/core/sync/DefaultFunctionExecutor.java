@@ -35,32 +35,34 @@ public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T> {
   public List<ExecutorResponse<T>> execute() {
     final List<ExecutorResponse<T>> executorResponses = new ArrayList<>();
 
+    T result = null;
+
     try {
-      T result = getFirstTask().getTask().get();
-      getFirstTask().getDoOnSuccess().accept(result);
-      atomicReference.set(result);
-      executorResponses.add(new ExecutorResponse<>(result));
+      result = getFirstTask().getTask().get();
     } catch (Exception e) {
       getFirstTask().getDoOnError().accept(e);
       executorResponses.add(new ExecutorResponse<>(e));
     }
 
+    getFirstTask().getDoOnSuccess().accept(result);
+    executorResponses.add(new ExecutorResponse<>(result));
+
     for (Task<Function<T, T>, T> task : getTasks()) {
       try {
-        if (Objects.isNull(atomicReference.get())) {
+        if (Objects.isNull(result)) {
           break;
         }
-        T result = task.getTask().apply(atomicReference.get());
-        task.getDoOnSuccess().accept(result);
-        atomicReference.set(result);
-        executorResponses.add(new ExecutorResponse<>(result));
-      } catch (Exception e) {
+        result = task.getTask().apply(result);
+      } catch (Throwable e) {
         task.getDoOnError().accept(e);
         executorResponses.add(new ExecutorResponse<>(e));
         break;
       }
+      task.getDoOnSuccess().accept(result);
+      executorResponses.add(new ExecutorResponse<>(result));
     }
 
     return executorResponses;
   }
+
 }

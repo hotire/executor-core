@@ -2,8 +2,8 @@ package com.github.hotire.executor.core.async;
 
 import static java.util.stream.Collectors.toList;
 
-import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.AbstractSupplierExecutor;
+import com.github.hotire.executor.core.common.ExecutorResponse;
 import com.github.hotire.executor.core.common.Task;
 import java.util.HashMap;
 import java.util.List;
@@ -93,14 +93,15 @@ public class DefaultAsyncExecutor<T> extends AbstractSupplierExecutor<T, T> {
       .collect(toList())
       .stream()
       .map(future -> {
+        T result;
         try {
-          T result = future.get();
-          futureTaskMap.get(future).getDoOnSuccess().accept(result);
-          return new ExecutorResponse<>(result);
-        } catch (Exception e) {
+          result = future.get();
+        } catch (Throwable e) {
           futureTaskMap.get(future).getDoOnError().accept(e);
           return new ExecutorResponse<T>(e);
         }
+        futureTaskMap.get(future).getDoOnSuccess().accept(result);
+        return new ExecutorResponse<>(result);
       })
       .collect(toList());
   }
