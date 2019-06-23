@@ -72,11 +72,11 @@ public class DefaultAsyncExecutor<T> extends AbstractSupplierExecutor<T, T> {
     getTasks()
       .forEach(task ->
         supplyAsync(task.getTask())
-        .thenAccept(task.getDoOnSuccess())
-        .exceptionally(throwable -> {
-          task.getDoOnError().accept(throwable);
-          return null;
-        })
+          .exceptionally(throwable -> {
+            task.getDoOnError().accept(throwable);
+            return null;
+          })
+          .thenAccept(task.getDoOnSuccess())
       );
   }
 
