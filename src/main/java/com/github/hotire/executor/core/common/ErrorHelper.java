@@ -1,4 +1,4 @@
-package com.kakaocorp.bakery.executor.core.common;
+package com.github.hotire.executor.core.common;
 
 import java.util.function.Consumer;
 
