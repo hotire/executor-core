@@ -9,7 +9,7 @@ public class Caster {
     return t -> consumer.accept(castFunction.apply(t));
   }
 
-  static class CastConsumer<T, R> {
+  public static class CastConsumer<T, R> {
     private Function<T, R> castFunction;
     private CastConsumer(Function<T, R> castFunction) {
       this.castFunction = castFunction;
