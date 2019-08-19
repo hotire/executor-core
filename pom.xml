@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.hotire</groupId>
   <artifactId>executor-core</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <name>executor</name>
   <description>execute sync / async task</description>
   <url>https://github.com/hotire/executor-core</url>
@@ -38,7 +38,7 @@
 
   <distributionManagement>
     <repository>
-      <id>scheduler-conversion</id>
+      <id>executor-core</id>
       <url>https://api.bintray.com/maven/hotire/utils/executor-core/;publish=1</url>
     </repository>
   </distributionManagement>
