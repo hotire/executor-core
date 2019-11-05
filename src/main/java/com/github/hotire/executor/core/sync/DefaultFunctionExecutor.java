@@ -8,24 +8,24 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T> {
+public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T, T> {
 
   protected DefaultFunctionExecutor(
     Task<Supplier<T>, T> task) {
     super(task);
   }
 
-  public static<T> DefaultFunctionExecutor<T> ofTask(
+  public static <T> DefaultFunctionExecutor<T> ofTask(
     Supplier<T> task) {
     return new DefaultFunctionExecutor<>(Task.of(task));
   }
 
-  public static<T> DefaultFunctionExecutor<T> ofTask(
+  public static <T> DefaultFunctionExecutor<T> ofTask(
     Supplier<T> task, Consumer<Throwable> doOnError) {
     return new DefaultFunctionExecutor<>(Task.of(task, doOnError));
   }
 
-  public static<T> DefaultFunctionExecutor<T> ofTask(
+  public static <T> DefaultFunctionExecutor<T> ofTask(
     Supplier<T> task, Consumer<Throwable> doOnError, Consumer<T> doOnSuccess) {
     return new DefaultFunctionExecutor<>(Task.of(task, doOnError, doOnSuccess));
   }

@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.hotire</groupId>
   <artifactId>executor-core</artifactId>
-  <version>1.0.2</version>
+  <version>1.1.0</version>
   <name>executor</name>
   <description>execute sync / async task</description>
   <url>https://github.com/hotire/executor-core</url>
