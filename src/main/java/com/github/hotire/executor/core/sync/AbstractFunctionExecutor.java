@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class AbstractFunctionExecutor<T, R> implements SyncExecutor<T> {
+public abstract class AbstractFunctionExecutor<R, T> implements SyncExecutor<T> {
 
   private Task<Supplier<R>, T> firstTask;
 
@@ -17,17 +17,17 @@ public abstract class AbstractFunctionExecutor<T, R> implements SyncExecutor<T> 
     this.firstTask = task;
   }
 
-  public AbstractFunctionExecutor<T, R> addTask(Function<T, R> task) {
+  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task) {
     tasks.add(Task.of(task));
     return this;
   }
 
-  public AbstractFunctionExecutor<T, R> addTask(Function<T, R> task, Consumer<Throwable> doOnError) {
+  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task, Consumer<Throwable> doOnError) {
     tasks.add(Task.of(task, doOnError));
     return this;
   }
 
-  public AbstractFunctionExecutor<T, R> addTask(Function<T, R> task, Consumer<Throwable> doOnError,
+  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task, Consumer<Throwable> doOnError,
       Consumer<T> doOnSuccess) {
     tasks.add(Task.of(task, doOnError, doOnSuccess));
     return this;
