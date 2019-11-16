@@ -18,7 +18,7 @@
 <dependency>
     <groupId>com.github.hotire</groupId>
     <artifactId>executor-core</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 
 ```
