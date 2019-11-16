@@ -43,7 +43,7 @@ public class DefaultSupplierExecutor<T> extends AbstractSupplierExecutor<T, T> {
       T result;
       try {
         result = task.getTask().get();
-      } catch (Throwable e) {
+      } catch (Exception e) {
         task.getDoOnError().accept(e);
         executorResponses.add(new ExecutorResponse<>(e));
         break;

@@ -38,7 +38,7 @@ public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T, T> {
     // execute fistTask
     try {
       result = getFirstTask().getTask().get();
-    } catch (Throwable e) {
+    } catch (Exception e) {
       getFirstTask().getDoOnError().accept(e);
       executorResponses.add(new ExecutorResponse<>(e));
       return executorResponses;
@@ -51,7 +51,7 @@ public class DefaultFunctionExecutor<T> extends AbstractFunctionExecutor<T, T> {
     for (Task<Function<T, T>, T> task : getTasks()) {
       try {
         result = task.getTask().apply(result);
-      } catch (Throwable e) {
+      } catch (Exception e) {
         task.getDoOnError().accept(e);
         executorResponses.add(new ExecutorResponse<>(e));
         break;
