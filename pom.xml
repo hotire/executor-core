@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.hotire</groupId>
   <artifactId>executor-core</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <name>executor</name>
   <description>execute sync / async task</description>
   <url>https://github.com/hotire/executor-core</url>
@@ -65,20 +65,6 @@
         <executions>
           <execution>
             <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.4</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
             <phase>verify</phase>
             <goals>
               <goal>jar</goal>
