@@ -96,7 +96,7 @@ public class DefaultAsyncExecutor<T> extends AbstractSupplierExecutor<T, T> {
         T result;
         try {
           result = future.get();
-        } catch (Throwable e) {
+        } catch (Exception e) {
           futureTaskMap.get(future).getDoOnError().accept(e);
           return new ExecutorResponse<T>(e);
         }

@@ -7,37 +7,37 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class AbstractFunctionExecutor<R, T> implements SyncExecutor<T> {
+public abstract class AbstractFunctionExecutor<T, R> implements SyncExecutor<R> {
 
-  private Task<Supplier<R>, T> firstTask;
+  private Task<Supplier<T>, R> firstTask;
 
-  private Queue<Task<Function<T, R>, T>> tasks = new ConcurrentLinkedQueue<>();
+  private Queue<Task<Function<R, T>, R>> tasks = new ConcurrentLinkedQueue<>();
 
-  protected AbstractFunctionExecutor(Task<Supplier<R>, T> task) {
+  protected AbstractFunctionExecutor(Task<Supplier<T>, R> task) {
     this.firstTask = task;
   }
 
-  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task) {
+  public AbstractFunctionExecutor<T, R> addTask(Function<R, T> task) {
     tasks.add(Task.of(task));
     return this;
   }
 
-  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task, Consumer<Throwable> doOnError) {
+  public AbstractFunctionExecutor<T, R> addTask(Function<R, T> task, Consumer<Throwable> doOnError) {
     tasks.add(Task.of(task, doOnError));
     return this;
   }
 
-  public AbstractFunctionExecutor<R, T> addTask(Function<T, R> task, Consumer<Throwable> doOnError,
-      Consumer<T> doOnSuccess) {
+  public AbstractFunctionExecutor<T, R> addTask(Function<R, T> task, Consumer<Throwable> doOnError,
+      Consumer<R> doOnSuccess) {
     tasks.add(Task.of(task, doOnError, doOnSuccess));
     return this;
   }
 
-  public Task<Supplier<R>, T> getFirstTask() {
+  public Task<Supplier<T>, R> getFirstTask() {
     return firstTask;
   }
 
-  public Queue<Task<Function<T, R>, T>> getTasks() {
+  public Queue<Task<Function<R, T>, R>> getTasks() {
     return tasks;
   }
 
