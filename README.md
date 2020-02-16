@@ -9,7 +9,7 @@
 
 ### Maven
 
-```
+```xml
 <repository>
   <id>hotire</id>
   <url>http://dl.bintray.com/hotire/utils</url>
@@ -29,14 +29,14 @@
 
 - Supplier
 
-```
+```java
 DefaultAsyncExecutor
       .ofTask(executor, testService::service)
       .addTask(testService::get, testService::rollback, testService::save)
       .execute();
 ```
 
-```
+```java
 DefaultAsyncExecutor
       .ofTask(executor, testService::service)
       .addTask(testService::get, testService::rollback, testService::save)
@@ -47,14 +47,14 @@ DefaultAsyncExecutor
 
 - Supplier
 
-```
+```java
 DefaultExecutor
       .ofTask(testService::service)
       .addTask(testService::get)
       .execute();
 ```
 
-```
+```java
 DefaultExecutor
       .ofTask(testService::service)
       .addTask(() -> { throw new RuntimeException();})
@@ -64,7 +64,7 @@ DefaultExecutor
 
 - Function
 
-```
+```java
 DefaultExecutor
       .ofFunctionTask(() -> "s")
       .addTask(s -> s + s)
